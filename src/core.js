@@ -82,6 +82,8 @@ export function makeBooking(input, bookings, now = new Date()) {
 }
 
 // Synthetic bookings so some slots show as taken. Dates are relative to today.
+const PATIENTS = ["Riya", "Arjun", "Meera", "Kabir"];
+
 export function seedBookings(now = new Date()) {
   let d = addDays(now, 1);
   if (d.getDay() === 0) d = addDays(d, 1);
@@ -90,7 +92,8 @@ export function seedBookings(now = new Date()) {
     ["d1", "10:00", "checkup"], ["d1", "11:30", "cleaning"], ["d2", "09:00", "filling"], ["d2", "14:00", "whitening"],
   ].map(([dentistId, time, serviceId], i) => ({
     id: `BK-S${i + 1}`, serviceId, dentistId, date: day, time,
-    name: `Test Patient ${i + 1}`, email: `patient${i + 1}@example.com`, phone: "+00 0000 00000" + i,
+    // example.com is reserved for documentation, so these addresses can never reach a real inbox
+    name: PATIENTS[i], email: `${PATIENTS[i].toLowerCase()}@example.com`, phone: "+00 0000 00000" + i,
     createdAt: now.toISOString(),
   }));
 }
