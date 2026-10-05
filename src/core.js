@@ -17,8 +17,8 @@ export const SERVICES = [
 ];
 
 export const DENTISTS = [
-  { id: "d1", name: "Dr. Alex Example" },
-  { id: "d2", name: "Dr. Sam Sample" },
+  { id: "d1", name: "Dr. Alex" },
+  { id: "d2", name: "Dr. Sam" },
 ];
 
 // ponytail: every service takes one 30-minute slot; per-service durations if the demo ever needs them
