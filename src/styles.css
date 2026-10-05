@@ -1,21 +1,13 @@
-/* Apple-style neutrals with one bright color per service. Tiles and selections use dark ink on the
-   bright colors (all above 7:1); the blue default uses white ink (4.7:1). */
+/* Always light: white surfaces, blue as the main color, green as the second. Tiles and selections
+   use dark ink on the bright colors (above 6:1); the blue default uses white ink (4.7:1). */
 :root {
-  --bg: #f5f5f7; --card: #ffffff; --fill: #ececf0; --text: #1d1d1f; --muted: #6e6e73; --line: #d9d9de;
-  --blue: #0071e3; --sky: #5ac8fa; --mint: #34dfa0; --orange: #ffa41b; --pink: #ff74b8;
-  --ink-on: #10131a; --error: #d70015;
-  --bar: rgb(245 245 247 / 0.72);
-  --shadow: 0 1px 2px rgb(16 19 26 / 0.04), 0 12px 32px rgb(16 19 26 / 0.06);
+  --bg: #f4f8fd; --card: #ffffff; --fill: #eef3f9; --text: #0f1b2d; --muted: #5a6779; --line: #dde5ef;
+  --blue: #0071e3; --sky: #5cb8ff; --mint: #3ddc84; --orange: #2ed3c6; --pink: #a6e86b;
+  --green: #1fb85f; --ink-on: #0b1726; --error: #d70015;
+  --bar: rgb(255 255 255 / 0.75);
+  --shadow: 0 1px 2px rgb(15 50 100 / 0.05), 0 14px 36px rgb(15 50 100 / 0.08);
   --ease: cubic-bezier(0.32, 0.72, 0, 1); /* close to an iOS sheet curve */
   color-scheme: light;
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #0a0a0c; --card: #1c1c1e; --fill: #2c2c2e; --text: #f5f5f7; --muted: #a1a1a6; --line: #38383a;
-    --error: #ff6961; --bar: rgb(10 10 12 / 0.7);
-    --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 12px 32px rgb(0 0 0 / 0.35);
-    color-scheme: dark;
-  }
 }
 
 * { box-sizing: border-box; }
@@ -49,18 +41,22 @@ button:disabled { cursor: not-allowed; }
   background: var(--card); box-shadow: 0 1px 3px rgb(0 0 0 / 0.12), 0 3px 8px rgb(0 0 0 / 0.06);
   transition: transform 380ms var(--ease);
 }
-@media (prefers-color-scheme: dark) { .seg-thumb { background: #636366; } }
 .seg[data-on="admin"] .seg-thumb { transform: translateX(100%); }
 
 .page { max-width: 1120px; margin: 0 auto; padding: 20px 20px 64px; }
-.notice { margin: 0 0 8px; padding: 10px 16px; border-radius: 14px; background: var(--fill); color: var(--muted); font-size: 14px; }
+.notice { margin: 0 0 8px; padding: 10px 16px; border-radius: 14px; background: #e7f8ee; color: #1d5b36; font-size: 14px; }
 .hint { color: var(--muted); margin: 0; font-size: 15px; }
 .small { font-size: 13px; margin-top: 10px; }
 .error { color: var(--error); font-size: 14px; margin: 8px 0 0; }
 
-.hero { padding: 40px 0 28px; }
+.hero {
+  margin: 12px 0 24px; padding: 48px 40px; border-radius: 32px; color: #fff;
+  background: linear-gradient(120deg, #0066d6 0%, #0a7fd8 50%, #0e9a55 100%);
+  box-shadow: 0 20px 50px rgb(0 113 227 / 0.22);
+}
+@media (max-width: 560px) { .hero { padding: 32px 24px; border-radius: 26px; } }
 .hero h1 { margin: 0; font-size: clamp(2.4rem, 5.5vw, 4rem); line-height: 1.04; letter-spacing: -0.035em; font-weight: 700; }
-.hero p { margin: 12px 0 0; font-size: clamp(1.1rem, 1.6vw, 1.3rem); color: var(--muted); max-width: 38ch; }
+.hero p { margin: 12px 0 0; font-size: clamp(1.1rem, 1.6vw, 1.3rem); color: rgb(255 255 255 / 0.92); max-width: 38ch; }
 
 .grid { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 24px; align-items: start; }
 @media (max-width: 880px) { .grid { grid-template-columns: minmax(0, 1fr); } }
@@ -88,7 +84,7 @@ button:disabled { cursor: not-allowed; }
 .service-price { font-size: 15px; font-weight: 600; opacity: 0.8; }
 .service-check { position: absolute; top: 12px; right: 12px; font-size: 26px; animation: pop 420ms var(--ease); }
 .service.on { box-shadow: 0 0 0 3px var(--card), 0 0 0 6px var(--c), 0 14px 30px color-mix(in srgb, var(--c) 40%, transparent); }
-.services:has(.on) .service:not(.on) { filter: saturate(0.55) brightness(0.98); transform: scale(0.97); }
+.services:has(.on) .service:not(.on) { transform: scale(0.95); }
 
 /* Dentists */
 .dentists { display: flex; flex-wrap: wrap; gap: 10px; }
@@ -162,7 +158,7 @@ input:focus { outline: none; border-color: var(--tone, var(--blue)); background:
 .assistant { position: sticky; top: 76px; padding: 20px; display: flex; flex-direction: column; }
 @media (max-width: 880px) { .assistant { position: static; } }
 .bot-head { display: flex; gap: 12px; align-items: center; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
-.bot-avatar { display: grid; place-items: center; flex: none; width: 44px; height: 44px; border-radius: 50%; background: var(--sky); color: var(--ink-on); font-size: 24px; }
+.bot-avatar { display: grid; place-items: center; flex: none; width: 44px; height: 44px; border-radius: 50%; background: var(--green); color: #fff; font-size: 24px; }
 .bot-head h2 { margin: 0; font-size: 19px; letter-spacing: -0.01em; }
 .bot-head p { margin: 0; color: var(--muted); font-size: 14px; }
 .log { height: 380px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; padding: 14px 0; }
@@ -173,7 +169,7 @@ input:focus { outline: none; border-color: var(--tone, var(--blue)); background:
 .ask input { flex: 1; min-width: 0; padding: 8px 6px; border: 0; background: none; }
 .ask input:focus { background: none; }
 .mic, .send { flex: none; display: grid; place-items: center; width: 36px; height: 36px; border: 0; border-radius: 50%; font-size: 18px; transition: transform 100ms, background 200ms, opacity 200ms; }
-.mic { background: var(--pink); color: var(--ink-on); }
+.mic { background: var(--mint); color: var(--ink-on); }
 .mic.on { animation: listen 1.2s ease-in-out infinite; }
 .send { background: var(--blue); color: #fff; }
 .send:disabled { opacity: 0.35; }
@@ -194,7 +190,7 @@ td { padding: 12px; white-space: nowrap; border-top: 1px solid var(--line); }
 @keyframes pop { from { transform: scale(0.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 @keyframes rise { from { transform: translateY(14px) scale(0.98); opacity: 0; } to { transform: none; opacity: 1; } }
 @keyframes bubble { from { transform: scale(0.85); opacity: 0; } to { transform: none; opacity: 1; } }
-@keyframes listen { 0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--pink) 60%, transparent); } 50% { box-shadow: 0 0 0 8px transparent; } }
+@keyframes listen { 0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--mint) 70%, transparent); } 50% { box-shadow: 0 0 0 8px transparent; } }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 1ms !important; animation-iteration-count: 1 !important; transition-duration: 1ms !important; }
